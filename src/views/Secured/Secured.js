@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styles from "../Home/Home.module.css";
-import Head from "next/head";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
 import { Auth, Logger } from "aws-amplify";
@@ -11,23 +10,19 @@ import { useSessionContext } from "../../store/SessionContext";
 const logger = new Logger('Secured');
 
 const Secured = () => {
-  const [values, setValues] = useState({});
-  const [data, setData] = useState(null)
-
-  function updateCity(e) {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  }
+  // const [values, setValues] = useState({});
+  const [data, setData] = useState({})
 
   function submitForm(e) {
+    const city = e.target.city.value
     e.preventDefault();
-    fetch(`https://uojf7nqo7uf7jjolnps4vnglsi0hmjtb.lambda-url.us-east-1.on.aws/?city=${values.city}`, {
+    fetch(`https://uojf7nqo7uf7jjolnps4vnglsi0hmjtb.lambda-url.us-east-1.on.aws/?city=${city}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then(
         (res) => {
-          console.log(res)
-          setData(res)
+            setData(res)
         },
         (err) => console.log(err)
       );
@@ -47,16 +42,18 @@ const Secured = () => {
 
       <main className={styles.main}>
         <div className={styles.grid}>
-          <input type='text' name="city" onChange={updateCity} />
-          <Button className={styles.searchButton} onClick={submitForm} type="button">Search</Button>
+          <form onSubmit={submitForm} method="post">
+            <input type="text" id="city" name="city" />
+            <button className={styles.searchButton} type="submit">Search</button>
+          </form>
           <div className={styles.card}>
             <div className={styles.wrapToken}>
               <p>Temperature : {data?.temperature} °C</p><br />
               <p>Weather Condition : {data?.weatherCondition?.type}</p>
               <p>Wind : {data?.wind?.speed} km/h</p><br />
               <p>Wind Direction: {data?.wind?.direction}</p><br />
-              <p>Pressure : {data?.weatherCondition?.pressure} </p><br />
-              <p>Humidity : {data?.weatherCondition?.humidity} </p><br />
+              <p>Pressure : {data?.weatherCondition?.pressure}</p><br/>
+              <p>Humidity : {data?.weatherCondition?.humidity}</p><br/>
             </div>
           </div>
           <div className={styles.card}>
@@ -75,15 +72,6 @@ const Secured = () => {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://www.czetsuyatech.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Czetsuya Tech
-        </a>
-      </footer>
     </div>
   )
 }

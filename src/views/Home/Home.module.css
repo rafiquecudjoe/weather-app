@@ -121,8 +121,8 @@
   }
 }
 
-.wrapToken {
+/* .wrapToken {
   display: flex;
   flex-wrap: wrap;
   overflow-wrap: anywhere;
-}
+} */
