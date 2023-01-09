@@ -17,7 +17,7 @@
     "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.11.4",
     "aos": "^2.3.4",
-    "aws-amplify": "^4.1.0",
+    "aws-amplify": "^4.3.45",
     "aws-amplify-react": "^5.0.2",
     "clsx": "^1.1.1",
     "cookie": "^0.4.1",
