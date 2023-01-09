@@ -26,7 +26,7 @@ Amplify.configure({
         // Note: if the secure flag is set to true, then the cookie transmission requires a secure protocol
         cookieStorage: {
             // REQUIRED - Cookie domain (only required if cookieStorage is provided)
-            domain: process.env.AUTH_COOKIE_DOMAIN,
+            domain: 'https://weather-app-theta-six-45.vercel.app/',
             // OPTIONAL - Cookie path
             path: '/',
             // OPTIONAL - Cookie expiration in days
